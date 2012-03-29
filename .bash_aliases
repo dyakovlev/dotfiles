@@ -41,8 +41,8 @@ alias ol="egrep '^class|def.*:\$'"
 alias sc="sort | uniq -c | sort -rn"
 
 # minor ls adjustments (this doesn't work with OSX ls)
-alias la='ls -la'
-alias ll='ls -l'
+alias la='ls -laG'
+alias ll='ls -lG'
 
 # color status
 function cfc {
