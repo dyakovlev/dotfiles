@@ -1,0 +1,8 @@
+!*
+!.gitignore
+
+# this should get ignored
+tmp
+backup
+bundle
+.netrwhist

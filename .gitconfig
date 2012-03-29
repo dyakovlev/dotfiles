@@ -1,0 +1,11 @@
+[alias]
+	apple-pick = !sh -c 'git rev-list --reverse "$@" | xargs -n1 git cherry-pick' -
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	hist = log --pretty=format:\"%h %ad [%an]\t%s%d\" --graph --date=short
+[user]
+[user]
+	name = Dmitriy Yakovlev
+	email = dmitriy.yakovlev@gmail.com
