@@ -4,6 +4,8 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
+alias irc='screen -r irc'
+
 alias c='clear'
 alias m='make'
 alias v='vim'

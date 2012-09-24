@@ -45,10 +45,18 @@ set laststatus=2
 set title                   " Show title in title bar
 "set cursorline              " Highlight the current line
 
-set noexpandtab				" in python, we use real tabs
-set softtabstop=4
+" highlight some badness
+set list listchars=tab:→\ ,trail:·
+
+" figure out tab spacing depending on some things
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+" highlight tabs
+syntax match Tab /\t/
+hi Tab ctermbg=blue
 
 " in coffeescript, we use 2-space tabs
 au BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
@@ -81,7 +89,7 @@ set t_Co=256
 let g:zenburn_high_Contrast=1
 let g:zenburn_force_dark_Background=1
 colors zenburn
-" tweak the numberline to look on in zenburn
+" tweak the numberline to look ok in zenburn
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
 
 " highlight trailing whitespace and non-tab indents
@@ -219,5 +227,3 @@ map zj <C-W>j<C-W>_<CR>
 " Switch tabs easily
 nmap <Tab> gt
 
-" kill the last highlight cause it sticks around for some dumb reason
-nohl

@@ -4,6 +4,10 @@ if [ -d ~/bin ] ; then
 	export PATH=~/bin:"${PATH}"
 fi
 
+if [ -d ~/man ] ; then
+	export MANPATH=~/man:"${MANPATH}"
+fi
+
 if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
 fi
