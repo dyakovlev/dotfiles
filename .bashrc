@@ -43,7 +43,7 @@ export PS1='\
 && echo "\[\e[01;34m\]\W"\
 || echo "\[\e[01;31m\]\W"`\
 \[\e[01;37m\]]\
-`[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]]\
+`[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]]\
 && echo "\[\e[01;31m\]"\
 || echo "\[\e[01;32m\]"`$(__git_ps1 "(%s)")\[\e[00m\]\$ '
 
@@ -53,3 +53,7 @@ export EDITOR VISUAL GIT_EDITOR
 EDITOR=vim
 VISUAL=$EDITOR
 GIT_EDITOR=$EDITOR
+
+# golang stuff
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export GOPATH=$HOME/Code/go
