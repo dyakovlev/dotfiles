@@ -1,14 +1,15 @@
 set nocompatible			" Ditch strict vi compatibility
 
 filetype off				" required for vundle init
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'gmarik/vundle'
+Plugin 'L9'
+Plugin 'FuzzyFinder'
+Plugin 'tpope/vim-fugitive'
+call vundle#end()
 
-" install some bundles from github
-Bundle 'gmarik/vundle'
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'tpope/vim-fugitive'
 filetype plugin indent on	" back to our regular programming
 
 " Clear existing autocommands
