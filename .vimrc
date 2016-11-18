@@ -7,6 +7,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'gmarik/vundle'
 Plugin 'L9'
 Plugin 'FuzzyFinder'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 call vundle#end()
 
