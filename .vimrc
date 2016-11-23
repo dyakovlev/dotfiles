@@ -10,6 +10,8 @@ Plugin 'FuzzyFinder'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-fugitive'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 call vundle#end()
 
 filetype plugin indent on	" back to our regular programming
@@ -105,16 +107,22 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 highlight Pmenu term=bold ctermfg=Cyan
+
+" highlight jsx in .js files
+let g:jsx_ext_required = 0
+
 " Extra filetypes
-"au BufNewFile,BufRead *.tmpl set filetype=html
+au BufNewFile,BufRead *.tmpl set filetype=html
 au BufNewFile,BufRead *.js.tmpl set filetype=javascript
 au BufNewFile,BufRead *.css.tmpl set filetype=css
+
 " Keep comments indented
 inoremap # #
+
 " make requires real tabs
 autocmd FileType make set noexpandtab shiftwidth=8
-" Check for file changes periodically and on window & buffer
-" switches
+
+" Check for file changes periodically and on window & buffer switches
 autocmd CursorHold * checktime
 autocmd WinEnter * checktime
 autocmd BufWinEnter * checktime
