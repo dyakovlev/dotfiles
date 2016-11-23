@@ -40,8 +40,8 @@ export PS1='\
 || echo "\[\e[00;32m\]"`\
 \h \
 `[ -w "${PWD}" ]\
-&& echo "\[\e[01;34m\]\W"\
-|| echo "\[\e[01;31m\]\W"`\
+&& echo "\[\e[01;34m\]\w"\
+|| echo "\[\e[01;31m\]\w"`\
 \[\e[01;37m\]]\
 `[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]]\
 && echo "\[\e[01;31m\]"\
