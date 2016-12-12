@@ -47,13 +47,18 @@ export PS1='\
 && echo "\[\e[01;31m\]"\
 || echo "\[\e[01;32m\]"`$(__git_ps1 "(%s)")\[\e[00m\]\$ '
 
-export PATH=$PATH:~/node/bin
 
 export EDITOR VISUAL GIT_EDITOR
 EDITOR=vim
 VISUAL=$EDITOR
 GIT_EDITOR=$EDITOR
 
+# node stuff
+export PATH=$PATH:~/node/bin
+
 # golang stuff
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export GOPATH=$HOME/Code/go
+
+# postgres stuff
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
