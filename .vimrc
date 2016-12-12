@@ -12,6 +12,7 @@ Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-fugitive'
 Plugin 'othree/yajs.vim'
 Plugin 'mxw/vim-jsx'
+Plugin 'vim-ruby/vim-ruby'
 call vundle#end()
 
 filetype plugin indent on	" back to our regular programming
