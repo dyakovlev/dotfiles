@@ -15,7 +15,7 @@ alias g='git'
 alias ev='vim ~/.vimrc'
 alias eb='vim ~/.bash_aliases'
 alias r='source ~/.bash_profile'
-#
+
 # regen tags for all python source files
 alias tags="/usr/bin/ctags -L <(find . -name '*.py') --fields=+iaS --sort=yes --extra=+q"
 
@@ -23,8 +23,13 @@ alias tags="/usr/bin/ctags -L <(find . -name '*.py') --fields=+iaS --sort=yes --
 alias st='git status'
 alias co='git checkout'
 alias br='git branch'
+alias mb='git co -b'
 
-alias cb='git branch -D' # cleanup branch
+alias fo='git fetch origin'
+alias rom='fo && git rebase origin/master'
+
+alias cb='git branch -D'
+alias cbr='git push origin --delete'
 
 alias ci='git commit -a -m'
 alias ca='git commit --amend -a'
@@ -37,9 +42,6 @@ alias what='git whatchanged --oneline'
 
 alias pto='git push origin HEAD -f'
 
-alias wtf="fc | awk '\$1 !~ /D/ { print \$2 }' | xargs pyflakes"
-alias unfuck='git clean -xfd && make clean && make'
-alias ol="egrep '^class|def.*:\$'"
 alias sc="sort | uniq -c | sort -rn"
 
 # minor ls adjustments (this doesn't work with OSX ls)
