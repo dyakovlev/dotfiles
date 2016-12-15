@@ -77,6 +77,7 @@ set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
 
 set mouse=a					" Mouse support (needs MouseEvents and SIMBL hax to work in Terminal.app)
+set ttymouse=sgr            " fix mouse support to work past 220th column (http://stackoverflow.com/questions/7000960/in-vim-why-doesnt-my-mouse-work-past-the-220th-column)
 
 " set default split opening position to be below and to the right of currently active split
 set splitbelow
