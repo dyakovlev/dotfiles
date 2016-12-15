@@ -64,8 +64,10 @@ set expandtab
 syntax match Tab /\t/
 hi Tab ctermbg=blue
 
-" in coffeescript, we use 2-space tabs
+" use 2-space tabs in some places
 au BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
+au BufNewFile,BufReadPost *.rb setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
+au BufNewFile,BufReadPost *.js setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
 
 set nohidden				" do not keep buffer after tab closed
 
