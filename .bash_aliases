@@ -38,7 +38,7 @@ alias l='git log origin/master..' # log for this entire branch
 alias d='git diff origin/master..' # diff for this entire branch
 alias dc='git diff HEAD'
 alias fc='git diff --name-status origin/master..' # list of files changed in the branch since the beginning
-alias what='git whatchanged --oneline'
+alias what='git whatchanged --oneline origin/master..'
 
 alias pto='git push origin HEAD -f'
 
