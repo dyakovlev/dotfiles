@@ -13,6 +13,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'othree/yajs.vim'
 Plugin 'mxw/vim-jsx'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'ap/vim-css-color'
 call vundle#end()
 
 filetype plugin indent on	" back to our regular programming
@@ -37,7 +38,7 @@ set wildmenu                " Use BASH style completion
 set wildmode=list:longest,full
 
 set scrolloff=3             " leave more context around cursor
-set number					" Line numbering
+set number                  " Line numbering
 
 set complete=.,w,b,u,t,],s{*.pm}
 set nobackup                " Don't keep a backup file
@@ -70,6 +71,7 @@ au BufNewFile,BufReadPost *.rb setl shiftwidth=2 expandtab tabstop=2 softtabstop
 au BufNewFile,BufReadPost *.erb setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
 au BufNewFile,BufReadPost *.arb setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
 au BufNewFile,BufReadPost *.js setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
+au BufNewFile,BufReadPost *.py setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
 
 set nohidden				" do not keep buffer after tab closed
 
@@ -80,6 +82,8 @@ set directory=~/.vim/tmp
 
 set mouse=a					" Mouse support (needs MouseEvents and SIMBL hax to work in Terminal.app)
 set ttymouse=sgr            " fix mouse support to work past 220th column (http://stackoverflow.com/questions/7000960/in-vim-why-doesnt-my-mouse-work-past-the-220th-column)
+
+set shiftround              " make >> and << shift to nearest indentation-level column
 
 " set default split opening position to be below and to the right of currently active split
 set splitbelow
@@ -92,8 +96,6 @@ set statusline+=%c,			" cursor column
 set statusline+=%l/%L		" cursor line/total lines
 
 set nofoldenable			" everything unfolded by default
-
-syntax on					" syntax highlighting on
 
 " set up zenburn
 set t_Co=256
@@ -114,13 +116,15 @@ autocmd BufWinLeave * call clearmatches()
 
 highlight Pmenu term=bold ctermfg=Cyan
 
+syntax on                    " syntax highlighting on
+
 " highlight jsx in .js files
 let g:jsx_ext_required = 0
 
 " Extra filetypes
-au BufNewFile,BufRead *.tmpl set filetype=html
-au BufNewFile,BufRead *.js.tmpl set filetype=javascript
-au BufNewFile,BufRead *.css.tmpl set filetype=css
+"au BufNewFile,BufRead *.tmpl set filetype=html
+"au BufNewFile,BufRead *.js.tmpl set filetype=javascript
+"au BufNewFile,BufRead *.css.tmpl set filetype=css
 
 " Keep comments indented
 inoremap # #
@@ -244,3 +248,5 @@ map zj <C-W>j<C-W>_<CR>
 " Switch tabs easily
 nmap <Tab> gt
 
+" visually select everything between matching braces
+noremap % v%

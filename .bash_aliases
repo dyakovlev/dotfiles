@@ -27,6 +27,7 @@ alias mb='git co -b'
 
 alias fo='git fetch origin'
 alias rom='fo && git rebase origin/master'
+alias ir='git rebase -i origin/master'
 
 alias cb='git branch -D'
 alias cbr='git push origin --delete'
