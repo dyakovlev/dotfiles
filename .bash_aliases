@@ -28,12 +28,15 @@ alias mb='git co -b'
 alias fo='git fetch origin'
 alias rom='fo && git rebase origin/master'
 alias ir='git rebase -i origin/master'
+alias msk='git ci -am "squash me" && ir'
 
 alias cb='git branch -D'
 alias cbr='git push origin --delete'
 
 alias ci='git commit -a -m'
 alias ca='git commit --amend -a'
+
+alias gg='git grep --color=always --break --heading'
 
 alias l='git log origin/master..' # log for this entire branch
 alias d='git diff origin/master..' # diff for this entire branch
