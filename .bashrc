@@ -63,11 +63,7 @@ export GOPATH=$HOME/Code/go
 # postgres stuff
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 
-# global history
-export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
-export HISTSIZE=100000                   # big big history
-export HISTFILESIZE=100000               # big big history
-shopt -s histappend                      # append to history, don't overwrite it
-
-# Save and reload the history after each command finishes
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+# ruby
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
+chruby 2.2.5
