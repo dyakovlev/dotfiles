@@ -10,6 +10,7 @@ alias c='clear'
 alias m='make'
 alias v='vim'
 alias g='git'
+alias b='bundle exec'
 
 # editing things faster
 alias ev='vim ~/.vimrc'

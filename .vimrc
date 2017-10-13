@@ -1,5 +1,8 @@
 set nocompatible			" Ditch strict vi compatibility
 
+let g:javascript_plugin_flow = 1 " flow highlighting
+let g:jsx_ext_required = 0       " sniff out jsx in .js files
+
 filetype off				" required for vundle init
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -10,12 +13,12 @@ Plugin 'FuzzyFinder'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-fugitive'
-Plugin 'othree/yajs.vim'
-Plugin 'mxw/vim-jsx'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'ap/vim-css-color'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'leshill/vim-json'
 call vundle#end()
-
 filetype plugin indent on	" back to our regular programming
 
 " Clear existing autocommands

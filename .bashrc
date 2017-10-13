@@ -60,10 +60,7 @@ export PATH=$PATH:~/node/bin
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export GOPATH=$HOME/Code/go
 
-# postgres stuff
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
-
 # ruby
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
-chruby 2.2.5
+chruby 2.2.7
