@@ -288,5 +288,3 @@ nmap <Tab> gt
 " visually select everything between matching braces
 noremap % v%
 
-" toggle concentration camp mode
-nnoremap <leader>g :Goyo<CR>
