@@ -1,25 +1,21 @@
 set nocompatible			" Ditch strict vi compatibility
 
-let g:javascript_plugin_flow = 1 " flow highlighting
-let g:jsx_ext_required = 0       " sniff out jsx in .js files
+" install plugins
+call plug#begin('~/.vim/plugged')
+Plug 'airblade/vim-gitgutter'
+Plug 'ap/vim-css-color'
+Plug 'chaoren/vim-wordmotion'
+Plug 'sheerun/vim-polyglot'
 
-filetype off				" required for vundle init
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'gmarik/vundle'
-Plugin 'L9'
-Plugin 'FuzzyFinder'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'fatih/vim-go'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'ap/vim-css-color'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'leshill/vim-json'
-call vundle#end()
-filetype plugin indent on	" back to our regular programming
+Plug 'sainnhe/gruvbox-material'
+
+
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'branch': 'release/1.x',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+
+call plug#end()
 
 " Clear existing autocommands
 autocmd!
@@ -101,10 +97,19 @@ set statusline+=%l/%L		" cursor line/total lines
 set nofoldenable			" everything unfolded by default
 
 " set up zenburn
-set t_Co=256
-let g:zenburn_high_Contrast=1
-let g:zenburn_force_dark_Background=1
-colors zenburn
+"set t_Co=256
+"let g:zenburn_high_Contrast=1
+"let g:zenburn_force_dark_Background=1
+"colors zenburn
+
+" set up gruvbox
+set termguicolors
+set background=dark
+" available values: 'hard', 'medium'(default), 'soft'
+let g:gruvbox_material_background = 'medium'
+
+colorscheme gruvbox-material
+
 " tweak the numberline to look ok in zenburn
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
 
@@ -124,10 +129,31 @@ syntax on                    " syntax highlighting on
 " highlight jsx in .js files
 let g:jsx_ext_required = 0
 
+" match .eslintrc's prettier rules
+let g:prettier#config#print_width = 100
+let g:prettier#config#single_quote = 'true'
+let g:prettier#config#bracket_spacing = 'true'
+let g:prettier#config#jsx_bracket_same_line = 'false'
+let g:prettier#config#arrow_parens = 'always'
+let g:prettier#config#trailing_comma = 'all'
+let g:prettier#config#parser = 'flow'
+
+let g:prettier#quickfix_enabled = 0
+let g:prettier#config#config_precedence = 'cli-override'
+let g:prettier#exec_cmd_path = '~/repos/remix/client/node_modules/.bin/prettier'
+
+" configure prettier to run on save
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
+
 " Extra filetypes
 "au BufNewFile,BufRead *.tmpl set filetype=html
 "au BufNewFile,BufRead *.js.tmpl set filetype=javascript
 "au BufNewFile,BufRead *.css.tmpl set filetype=css
+
+autocmd BufNewFile,BufRead *.ts set filetype=typescript
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
 " Keep comments indented
 inoremap # #
@@ -175,12 +201,20 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 
+" gitgutter - dots
+let g:gitgutter_sign_added = '⋮'
+let g:gitgutter_sign_modified = '⋮'
+let g:gitgutter_sign_removed = '⋮'
+let g:gitgutter_sign_modified_removed = '⋮'
+
 " tags file - this looks in current directory, then recurses up until it finds
 " a file named 'tags'.
 set tags=./tags;/
 
 " Suppress the no-ruby warning from Lusty Explorer
 let g:LustyJugglerSuppressRubyWarning = 1
+
+let mapleader = ","
 
 " -------------
 " various key combinations and tweaks
@@ -209,8 +243,8 @@ nnoremap <silent> k gk
 nnoremap <silent> j gj
 
 " rotate vertical/horizontal splits
-nnoremap ,x ^Wt^WH
-nnoremap ,z ^Wt^WK
+nnoremap <leader>x ^Wt^WH
+nnoremap <leader>z ^Wt^WK
 
 " center view around search result
 map N Nzz
@@ -226,23 +260,23 @@ map <C-L> <C-W>l
 nmap <F4> :pop<CR>
 
 " open ctags in various ways
-nmap .e 
-nmap .v :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-nmap .s :sp <CR>:exec("tag ".expand("<cword>"))<CR>
-nmap .t :tabnew <CR>:exec("tag ".expand("<cword>"))<CR>
+"nmap .e 
+"nmap .v :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+"nmap .s :sp <CR>:exec("tag ".expand("<cword>"))<CR>
+"nmap .t :tabnew <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " open files from cur dir in various ways
-map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
-map ,v :vsp <C-R>=expand("%:p:h") . "/" <CR>
-map ,s :sp <C-R>=expand("%:p:h") . "/" <CR>
-map ,t :tabnew <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>v :vsp <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>s :sp <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>t :tabnew <C-R>=expand("%:p:h") . "/" <CR>
 
 " toggle git blame display
-nmap ,b :GitBlame <CR>
+nmap <leader>b :GitBlame <CR>
 
 " quick save hotkey
-nmap ,w :w <CR>
-nmap ,q :q <CR>
+nmap <leader>w :w <CR>
+nmap <leader>q :q <CR>
 
 " horizontal split accordionator
 map zk <C-W>k<C-W>_<CR>
@@ -253,3 +287,6 @@ nmap <Tab> gt
 
 " visually select everything between matching braces
 noremap % v%
+
+" toggle concentration camp mode
+nnoremap <leader>g :Goyo<CR>
