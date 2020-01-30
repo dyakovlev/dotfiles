@@ -62,5 +62,6 @@ export GOPATH=$HOME/Code/go
 
 # ruby
 source /usr/local/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
-chruby 2.2.7
+source /usr/local/share/chruby/auto.sh
+
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
