@@ -1,0 +1,15 @@
+{
+  "tsserver.enable": true,
+  "tsserver.enableJavascript": false,
+  "typescript.suggest.autoImports": true,
+  "typescript.suggestionActions.enabled": true,
+  "typescript.suggest.completeFunctionCalls": true,
+
+  "eslint.run": "onSave",
+  "eslint.autoFixOnSave": true,
+  "eslint.filetypes": ["javascript", "typescript", "typescriptreact"],
+  "eslint.enable": true,
+  "eslint.packageManager": "yarn",
+
+  "diagnostic.signOffset": 9999999
+}

@@ -5,9 +5,8 @@
 	st = status
 	br = branch
 	hist = log --pretty=format:\"%h %ad [%an]\t%s%d\" --graph --date=short
-[user]
-[user]
-	name = Dmitriy Yakovlev
-	email = dmitriy.yakovlev@gmail.com
+	amend-to = "!f() { SHA=`git rev-parse \"$1\"`; git commit --fixup \"$SHA\" && GIT_SEQUENCE_EDITOR=true git rebase --interactive --autosquash \"$SHA^\"; }; f"
 [grep]
 	lineNumber = true
+[merge]
+  conflictstyle = diff3

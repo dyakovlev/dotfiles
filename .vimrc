@@ -6,11 +6,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ap/vim-css-color'
 Plug 'chaoren/vim-wordmotion'
 Plug 'sheerun/vim-polyglot'
-
 Plug 'sainnhe/gruvbox-material'
-
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " Clear existing autocommands
@@ -35,7 +32,7 @@ set wildmode=list:longest,full
 set scrolloff=3             " leave more context around cursor
 set number                  " Line numbering
 
-set complete=.,w,b,u,t,],s{*.pm}
+"set complete=.,w,b,u,t,],s{*.pm}
 set nobackup                " Don't keep a backup file
 set history=5000            " Keep 5000 lines of command line history
 set viminfo='20,\"50        " Read/write a .viminfo file, don't store more than
@@ -65,15 +62,17 @@ au BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab tabstop=2 softtab
 au BufNewFile,BufReadPost *.rb setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
 au BufNewFile,BufReadPost *.erb setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
 au BufNewFile,BufReadPost *.arb setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
-au BufNewFile,BufReadPost *.js setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
+au BufNewFile,BufReadPost *.js,*.ts,*.tsx setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
 au BufNewFile,BufReadPost *.py setl shiftwidth=4 expandtab tabstop=4 softtabstop=4
 
-set nohidden				" do not keep buffer after tab closed
+set hidden				" keep buffer after tab closed
 
 " keep backups and temp files in ~.vim/, not next to the actual files
-set backup
-set backupdir=~/.vim/backup
+set nobackup
+set nowritebackup
 set directory=~/.vim/tmp
+
+
 
 set mouse=a					" Mouse support (needs MouseEvents and SIMBL hax to work in Terminal.app)
 set ttymouse=sgr            " fix mouse support to work past 220th column (http://stackoverflow.com/questions/7000960/in-vim-why-doesnt-my-mouse-work-past-the-220th-column)
@@ -92,17 +91,19 @@ set statusline+=%l/%L		" cursor line/total lines
 
 set nofoldenable			" everything unfolded by default
 
-" set up zenburn
-"set t_Co=256
-"let g:zenburn_high_Contrast=1
-"let g:zenburn_force_dark_Background=1
-"colors zenburn
+" COC recommnedations https://github.com/neoclide/coc.nvim#quick-start
+set cmdheight=1
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
 
 " set up gruvbox
 set termguicolors
 set background=dark
-" available values: 'hard', 'medium'(default), 'soft'
-let g:gruvbox_material_background = 'medium'
+let g:gruvbox_material_background = 'medium'  " available values: 'hard', 'medium'(default), 'soft'
+
+" copy to system clipboard
+set clipboard=unnamed
 
 colorscheme gruvbox-material
 
@@ -124,24 +125,6 @@ syntax on                    " syntax highlighting on
 
 " highlight jsx in .js files
 let g:jsx_ext_required = 0
-
-" set up prettier to run on save
-let g:prettier#exec_cmd_async = 1
-let g:prettier#quickfix_enabled = 0
-let g:prettier#config#print_width = 100
-let g:prettier#config#single_quote = 'true'
-let g:prettier#config#bracket_spacing = 'true'
-let g:prettier#config#jsx_bracket_same_line = 'false'
-let g:prettier#config#arrow_parens = 'always'
-let g:prettier#config#trailing_comma = 'all'
-let g:prettier#config#config_precedence = 'file-override'
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
-
-" Extra filetypes
-"au BufNewFile,BufRead *.tmpl set filetype=html
-"au BufNewFile,BufRead *.js.tmpl set filetype=javascript
-"au BufNewFile,BufRead *.css.tmpl set filetype=css
 
 autocmd BufNewFile,BufRead *.ts set filetype=typescript
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
@@ -174,23 +157,77 @@ function! SetCursorPosition()
   end
 endfunction
 
-" automatically figure out if we want Tab or complete
-function! Mosh_Tab_Or_Complete()
-    if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-        return "\<C-N>"
-    else
-        return "\<Tab>"
-endfunction
-inoremap <Tab> <C-R>=Mosh_Tab_Or_Complete()<CR>
 
-" Omni Completion
-autocmd FileType html :set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
+" deal with commented json better
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
+" COC
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> <M-h> :call CocActionAsync('doHover')<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+let g:coc_global_extensions = ['coc-eslint', 'coc-json', 'coc-tsserver', 'coc-solargraph']
 
 " gitgutter - dots
 let g:gitgutter_sign_added = '⋮'
@@ -275,6 +312,7 @@ map zj <C-W>j<C-W>_<CR>
 
 " Switch tabs easily
 nmap <Tab> gt
+nmap <S-Tab> gT
 
 " visually select everything between matching braces
 noremap % v%

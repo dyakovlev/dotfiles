@@ -52,16 +52,3 @@ export EDITOR VISUAL GIT_EDITOR
 EDITOR=vim
 VISUAL=$EDITOR
 GIT_EDITOR=$EDITOR
-
-# node stuff
-export PATH=$PATH:~/node/bin
-
-# golang stuff
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export GOPATH=$HOME/Code/go
-
-# ruby
-source /usr/local/share/chruby/chruby.sh
-source /usr/local/share/chruby/auto.sh
-
-export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
