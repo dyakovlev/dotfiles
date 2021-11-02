@@ -85,7 +85,7 @@ set shortmess+=c    " Don't pass messages to |ins-completion-menu|.
 set nobackup        " Some servers have issues with backup files.
 set nowritebackup
 
-let g:coc_global_extensions = ['coc-eslint', 'coc-json', 'coc-tsserver', 'coc-solargraph']
+let g:coc_global_extensions = ['coc-eslint', 'coc-prettier', 'coc-json', 'coc-tsserver', 'coc-solargraph', 'coc-pyright']
 
 " use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()

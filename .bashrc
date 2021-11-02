@@ -8,6 +8,10 @@ if [ -d ~/man ] ; then
 	export MANPATH=~/man:"${MANPATH}"
 fi
 
+if [ -f ~/.bashrc.old ]; then
+	. ~/.bashrc.old
+fi
+
 if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
 fi
@@ -21,7 +25,7 @@ __git_ps1 ()
 }
 
 export PS1='\
-\[\e[01;30m\]\A \
+\[\e[01;32m\]\A \
 \[\e[01;37m\][\
 `[ $UID == 0 -a $USER != $(logname) ]\
 && echo "\[\e[00;31m\]"`\
@@ -49,6 +53,13 @@ export PS1='\
 
 
 export EDITOR VISUAL GIT_EDITOR
-EDITOR=vim
+EDITOR=nvim
 VISUAL=$EDITOR
 GIT_EDITOR=$EDITOR
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# direnv(1) setup:
+eval "$(direnv hook bash)"

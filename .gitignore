@@ -11,4 +11,5 @@
 !.inputrc
 
 # folders
-!.vim
+!.config/nvim/coc-settings.json
+!.config/nvim/init.vim

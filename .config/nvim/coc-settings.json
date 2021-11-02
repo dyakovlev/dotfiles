@@ -1,0 +1,26 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "python"],
+
+  "tsserver.enable": true,
+  "tsserver.enableJavascript": false,
+
+  "typescript.suggest.autoImports": true,
+  "typescript.suggestionActions.enabled": true,
+  "typescript.suggest.completeFunctionCalls": true,
+
+  "eslint.run": "onSave",
+  "eslint.autoFixOnSave": true,
+  "eslint.packageManager": "yarn",
+
+  "prettier.statusItemText": "Ⓟ ",
+  "prettier.disableSuccessMessage": true,
+
+  "pyright.enable": true,
+  "python.analysis.autoSearchPaths": false,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "black",
+  "python.formatting.blackPath": "tools/bin/black",
+
+  "suggest.autoTrigger": "trigger",
+  "suggest.triggerAfterInsertEnter": true
+}

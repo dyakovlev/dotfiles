@@ -4,46 +4,50 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
-alias irc='screen -r irc'
-
 alias c='clear'
 alias m='make'
 alias v='nvim'
 alias g='git'
-alias b='bundle exec'
+alias b='bonsai'
+alias k='kubectl'
 
 # editing things faster
 alias ev='v ~/.config/nvim/init.vim'
 alias eb='v ~/.bash_aliases'
 alias r='source ~/.bash_profile && hash -r'
 
-# git fuckery
+# git workflows
 alias st='git status'
-alias co='git checkout'
-alias br='git branch'
-alias mb='git co -b'
+alias co='bonsai branch' # check out
+alias br='bonsai branch' # branches (list)
+alias mb='bonsai branch' # make branch
 
 alias fo='git fetch origin'
-alias rom='fo && git rebase origin/master'
+# alias rom='fo && git rebase origin/master' # rebase discouraged by work infra
+alias mm='fo && git merge origin/master'
 alias ir='git rebase -i origin/master'
 alias msk='git ci -am "squash me" && ir'
-
-alias cb='git branch -D'
-alias cbr='git push origin --delete'
 
 alias ci='git commit -a -m'
 alias ca='git commit --amend -a'
 
+# search over checked-in files
 alias gg='git grep --color=always --break --heading'
 
-alias l='git log origin/master..' # log for this entire branch
-alias d='git diff origin/master..' # diff for this entire branch
+# log of all commits on feature branch
+alias l='git log origin/master..'
+
+# diff of all commits on feature branch
+alias d='git diff origin/master..'
+
+# diff of all uncommitted changes in working directory
 alias dc='git diff HEAD'
-alias fc='git diff --name-status origin/master..' # list of files changed in the branch since the beginning
+
+# list of commits with files changed in each one (two flavors)
+alias fc='git log --raw --no-merges origin/master..'
 alias what='git whatchanged --oneline origin/master..'
 
-alias pto='git push origin HEAD -f'
-
+# count incidences of each unique line in stdin
 alias sc="sort | uniq -c | sort -rn"
 
 # minor ls adjustments (this doesn't work with OSX ls)

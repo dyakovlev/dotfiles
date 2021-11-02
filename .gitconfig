@@ -10,3 +10,8 @@
 	lineNumber = true
 [merge]
   conflictstyle = diff3
+[user]
+	name = Dmitriy Yakovlev
+	email = dyakovlev@aurora.tech
+[fetch]
+	prune = true
